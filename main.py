@@ -1,9 +1,9 @@
-import os
 import datetime
-import cv2 as cv
-from skimage.metrics import structural_similarity as compare_ssim
-from PIL import Image
+import os
 
+import cv2 as cv
+from PIL import Image
+from skimage.metrics import structural_similarity as compare_ssim
 
 start_time = datetime.datetime.now()
 
@@ -96,14 +96,18 @@ for i in range(start_frame, end_frame, frames_interval):
 
             prev_frame = roi
 
-
 # write a pdf file with all the images
+# sort by name
 images = []
-for file in os.listdir(frames_path):
+files = os.listdir(frames_path)
+
+files.sort(key=lambda f: int(f.split('.')[0]))
+
+for file in files:
     if file.endswith(".jpg"):
         images.append(Image.open(frames_path + file))
 
-cape = images.pop()
+cape = images.pop(0)
 
 cape.save(
     './output/' + video_name + '.pdf',
