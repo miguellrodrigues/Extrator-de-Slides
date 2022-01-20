@@ -20,11 +20,11 @@ if os.path.exists(video_name):
 if not os.path.exists('./output'):
     os.makedirs('./output')
 
-os.mkdir(f'./{video_name}')
-os.mkdir(f'./{video_name}/frames')
+os.mkdir(f'./output/{video_name}')
+os.mkdir(f'./output/{video_name}/frames')
 
 video_path = f'./input/{video_name}'
-frames_path = f'./{video_name}/frames/'
+frames_path = f'./output/{video_name}/frames/'
 
 seconds_interval = int(input("Enter the seconds interval: "))
 frames_interval = seconds_interval * 30  # 30 frames per second
@@ -65,7 +65,7 @@ if res == 'y':
 
 x1, y1, x2, y2 = top_left_x, top_left_y, bottom_right_x, bottom_right_y
 
-webcam = input('\nDos the video have a webcam (inside the cutting area) ? (y/n) ')
+webcam = input('\nDos the video have a webcam (inside the cropped area) ? (y/n) ')
 webcam_x1, webcam_y1, webcam_x2, webcam_y2 = 0, 0, 0, 0
 
 if webcam == 'y':
@@ -123,7 +123,7 @@ for file in files:
 cape = images.pop(0)
 
 cape.save(
-    './output/' + video_name + '.pdf',
+    f'./output/{video_name}/' + video_name + '.pdf',
     'PDF',
     resolution=100.0,
     save_all=True,
