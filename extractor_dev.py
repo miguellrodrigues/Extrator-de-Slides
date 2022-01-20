@@ -119,7 +119,6 @@ files.sort(key=lambda f: int(f.split('.')[0]))
 for file in files:
     images.append(Image.open(frames_path + file))
 
-
 cape = images.pop(0)
 
 cape.save(

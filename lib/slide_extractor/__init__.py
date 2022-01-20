@@ -198,4 +198,3 @@ class SlideExtractor:
             )
 
             print(f'\n{video_name}: Extraction finished')
-
