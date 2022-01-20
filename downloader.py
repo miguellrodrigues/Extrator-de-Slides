@@ -1,4 +1,5 @@
 from pytube import YouTube
+import os
 
 
 def download(url, path):
@@ -12,4 +13,9 @@ def download(url, path):
 if __name__ == '__main__':
     _url = input('Enter the url: ')
 
-    download(_url, './input/')
+    download_path = './input'
+
+    if not os.path.exists(download_path):
+        os.mkdir(download_path)
+
+    download(_url, download_path)
