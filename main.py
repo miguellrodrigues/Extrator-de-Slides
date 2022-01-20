@@ -27,7 +27,7 @@ video_path = f'./input/{video_name}'
 frames_path = f'./{video_name}/frames/'
 
 seconds_interval = int(input("Enter the seconds interval: "))
-frames_interval = seconds_interval * 30
+frames_interval = seconds_interval * 30  # 30 frames per second
 
 start_frame = int(input("Enter the start frame: "))
 
@@ -65,6 +65,15 @@ if res == 'y':
 
 x1, y1, x2, y2 = top_left_x, top_left_y, bottom_right_x, bottom_right_y
 
+webcam = input('\nDos the video have a webcam (inside the cutting area) ? (y/n) ')
+webcam_x1, webcam_y1, webcam_x2, webcam_y2 = 0, 0, 0, 0
+
+if webcam == 'y':
+    webcam_x = int(input('\nEnter the webcam top x coordinate: '))
+    webcam_y = int(input('Enter the webcam top y coordinate: '))
+
+    webcam_x1, webcam_y1, webcam_x2, webcam_y2 = webcam_x, webcam_y, webcam_x + width, webcam_y + height
+
 print('\nExtracting frames...')
 
 for i in range(start_frame, end_frame, frames_interval):
@@ -73,6 +82,10 @@ for i in range(start_frame, end_frame, frames_interval):
 
     if ret:
         roi = frame[y1:y2, x1:x2]
+
+        if webcam == 'y':
+            # replace the webcam with white pixels
+            roi[webcam_y1:webcam_y2, webcam_x1:webcam_x2] = 255
 
         if prev_frame is not None:
             # convert the frames to grayscale
