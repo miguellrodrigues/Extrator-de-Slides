@@ -181,6 +181,8 @@ class SlideExtractor:
                         cv.imwrite(frames_path + str(i) + '.jpg', roi)
                         prev_frame = roi
 
+        capture.release()
+
         generate_pdf(output_path, frames_path, video_name)
 
     def _multiple_extract_slides(self):
