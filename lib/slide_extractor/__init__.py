@@ -32,6 +32,11 @@ class ConfigParser:
                                  type=int,
                                  required=True)
 
+        self.parser.add_argument('-t', '--threshold',
+                                 help='Diff Threshold',
+                                 type=float,
+                                 required=False)
+
         self.parser.add_argument('-c', '--cut',
                                  help='Area of the frame to cut ( x1, y1, x2, y2 )',
                                  type=str,
@@ -45,6 +50,7 @@ class ConfigParser:
         self.rate = 30
         self.interval = 10
         self.start = 0
+        self.threshold = .05
 
         self.cut = []
         self.webcam = []
@@ -64,6 +70,9 @@ class ConfigParser:
         if self.args.start:
             self.start = self.args.start
 
+        if self.args.threshold:
+            self.start = self.args.threshold
+
         if self.args.cut:
             self.cut = [int(x) for x in self.args.cut.split(',')]
 
@@ -75,6 +84,7 @@ class ConfigParser:
             'rate': self.rate,
             'interval': self.interval,
             'start': self.start,
+            'threshold': self.threshold,
             'cut': self.cut,
             'webcam': self.webcam
         }
@@ -109,7 +119,7 @@ class SlideExtractor:
         if not os.path.exists(self.output_folder):
             os.makedirs(self.output_folder)
 
-        self.diff_th = 1 - .05
+        self.diff_th = 1 - self.slide_extractor_config['threshold']
 
     def extract(self):
         # verify if the folder is a file or a folder
